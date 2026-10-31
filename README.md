@@ -1,61 +1,84 @@
-# Search Algorithms Implementation and Analysis
+# Tom vs. Jerry: Search Strategies in an Interactive Maze
 
-This project contains the implementation and analysis of several fundamental search algorithms applied to graph and maze problems. The goal is to evaluate the efficiency, optimality, and completeness of each algorithm under different scenarios.
+An interactive **Pygame** application in which Tom searches a maze for Jerry using five classical **uninformed and informed search algorithms**. Each run animates the path found and reports the **computing time** and **number of expanded nodes**, so the algorithms can be compared side by side.
 
----
+## Algorithms
 
-## 📖 Algorithms Covered
-- **Breadth-First Search (BFS)** – Explores level by level, guarantees the shortest path in unweighted graphs.  
-- **Depth-First Search (DFS)** – Explores as deep as possible along each branch, memory-efficient but not always optimal.  
-- **Uniform Cost Search (UCS)** – Finds the least-cost path considering variable step costs.  
-- **Greedy Best-First Search** – Uses heuristic functions to prioritize nodes closer to the goal.  
-- **A*** – Combines path cost and heuristic to guarantee an optimal solution (if admissible and consistent).  
+| Algorithm | Type | Key property |
+|---|---|---|
+| **Breadth-First Search (BFS)** | Uninformed | Finds the shortest path in unweighted mazes |
+| **Depth-First Search (DFS)** | Uninformed | Low memory use; explores deep branches first |
+| **Uniform Cost Search (UCS)** | Uninformed | Finds the lowest-cost path with variable step costs |
+| **Greedy Best-First Search** | Informed | Fast, guided by a Manhattan-distance heuristic |
+| **A\*** | Informed | Combines path cost and heuristic for optimal paths with an admissible heuristic |
 
----
+## Features
 
-## 📂 Project Structure
-- **`bfs.py`** – Implementation of BFS with queue data structure.  
-- **`dfs.py`** – Implementation of DFS with recursion and stack.  
-- **`ucs.py`** – Implementation of UCS using priority queues.  
-- **`greedy.py`** – Greedy search with heuristic evaluation.  
-- **`astar.py`** – A* algorithm combining cost and heuristic.  
-- **`utils.py`** – Helper functions for graph representation and visualization.  
-- **`report.pdf`** – Full written analysis and comparison of algorithms (Persian report provided).  
+- Interactive maze rendered with Pygame, with buttons for each algorithm
+- Step-by-step animation of the path from Tom to Jerry
+- Live display of **computing time** and **number of expanded nodes**
+- Maze loaded from a simple text file, so new maps are easy to create
+- Manhattan-distance heuristic for Greedy and A\*
+- Background music and character sprites
 
----
+## Project structure
 
-## ⚙️ How to Run
-1. Install dependencies (if any):  
-   ```bash
-   pip install -r requirements.txt
-   ```  
+```text
+├── main.py                 # entry point: loads the maze and starts the interface
+├── interface.py            # Pygame interface, animation, and statistics
+├── node.py                 # search-tree node: state, cost, depth, heuristic
+├── matrix.txt              # maze definition
+├── algorithms/
+│   ├── bfsAlgorithm.py
+│   ├── dfsAlgorithm.py
+│   ├── costAlgorithm.py    # Uniform Cost Search
+│   ├── greedyAlgorithm.py
+│   └── AstarAlgorithm.py
+├── images/                 # Tom and Jerry sprites
+└── music/                  # background music
+```
 
-2. Run a specific algorithm:  
-   ```bash
-   python bfs.py
-   python dfs.py
-   python ucs.py
-   python greedy.py
-   python astar.py
-   ```  
+## Maze format
 
----
+The maze in `matrix.txt` is a grid of space-separated numbers:
 
-## 📊 Evaluation Criteria
-Each algorithm was analyzed based on:  
-- **Completeness** (Does it always find a solution?)  
-- **Optimality** (Does it guarantee the best/shortest solution?)  
-- **Time Complexity**  
-- **Space Complexity**  
-- **Number of Expanded Nodes**  
+| Value | Meaning |
+|---:|---|
+| `0` | Free cell |
+| `1` | Wall |
+| `2` | Tom (start) |
+| `6` | Jerry (goal) |
 
----
+Edit this file to try the algorithms on different mazes.
 
-## 🔍 Results & Insights
-- **BFS** is complete and optimal for unweighted graphs but has high memory usage.  
-- **DFS** is memory-efficient but not optimal; may get stuck in deep paths.  
-- **UCS** guarantees optimal solutions with varying step costs but can be slow.  
-- **Greedy** is fast but not always optimal (depends on heuristic quality).  
-- **A*** is the most powerful, combining path cost and heuristic, and guarantees optimality if heuristics are admissible and consistent.  
+## How to run
 
----
+```bash
+git clone https://github.com/Mohaddesemoghaddam/AI-Playground-Jerry-vs-Tom-Search-Strategies.git
+cd AI-Playground-Jerry-vs-Tom-Search-Strategies
+pip install pygame numpy
+python main.py
+```
+
+Click an algorithm name on the right side of the window to run it and watch Tom find Jerry.
+
+## Comparison criteria
+
+Each algorithm is compared on:
+
+- **Completeness:** does it always find a solution?
+- **Optimality:** does it find the shortest or cheapest path?
+- **Time complexity:** measured as computing time
+- **Space complexity:** reflected in the number of expanded nodes
+
+## Insights
+
+- **BFS** is complete and optimal on unweighted mazes but expands many nodes.
+- **DFS** uses little memory but may return long, non-optimal paths.
+- **UCS** guarantees the lowest-cost path when step costs vary.
+- **Greedy** search is fast but its paths depend on heuristic quality.
+- **A\*** balances path cost and heuristic guidance, finding optimal paths while typically expanding fewer nodes than uninformed methods.
+
+## Tech stack
+
+Python · Pygame · NumPy
